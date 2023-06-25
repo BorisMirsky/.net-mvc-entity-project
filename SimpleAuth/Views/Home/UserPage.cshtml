@@ -1,0 +1,35 @@
+﻿@model SimpleAuth.Models.UserPageModel;     
+
+@{
+    ViewData["Title"] = "UserPage"; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    var userpicPath = "";
+    if (@Model.userInfo?.Photo_Path == null || @Model.userInfo?.Photo_Path == "")  
+    {
+        userpicPath = "/userpics/anonim.png";
+    }
+    else
+    {
+        userpicPath = "/userpics/" + @Model.userInfo?.Photo_Path; 
+    }
+}   
+
+<br />
+                <div class="card border-primary mb-3" style="width: 25rem;">
+                    <img class="card-img-top" src=@(userpicPath) style="width:200px; padding:20px 20px 20px 20px;"/>
+                    <div class="card-body">
+                    <h5 class="card-title">Имя: @Model.userInfo?.Name</h5> <br/>
+                    <p class="card-text"> Email (Login): <b>@Model.userInfo?.Email</b></p>
+                    <p class="card-text"> Password: <b>@Model.userInfo?.Password</b></p>
+                    <p class="card-text">Дата приёма на работу: <b>@Model.userInfo?.Date</b> </p>
+                    <p class="card-text">Должность: <b>@Model.userInfo?.Position</b></p>
+                    <p class="card-text">Зарплата: <b>@Model.userInfo?.Salary</b></p>
+                    <p class="card-text">Hепосредственный начальник: <b>@Model.userInfo?.Immediate_Supervisor</b></p>
+                    <p class="card-text"><a href='@Url.Action("UserProfileEdit", "Home", new {id = @Model.userInfo?.Id })'>Редактировать профиль</a></p>
+                    </div>
+                </div>          
+

@@ -1,0 +1,229 @@
+﻿@using Microsoft.AspNetCore.Html;
+@using SimpleAuth.Entities;
+@using SimpleAuth.Controllers;
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] = SimpleAuth</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SimpleAuth.styles.css" asp-append-version="true" />
+
+    @{ string _href = "";
+        if (User.Identity?.Name == null)
+        {
+            _href = "/images/favicon_1.png";
+        }
+        else
+        {
+            _href = "/images/favicon_2.png";
+        }
+    }
+    <link rel="icon" type="image/png" href=@(_href) >
+</head>
+
+
+<body>
+
+        @if (ViewContext.HttpContext.User.Identity?.Name == "admin@google.com")     
+        {
+
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgba(0, 0, 0, 0.2);">
+            <div class="container-fluid">
+               <h4><a class="navbar-brand text-dark">SimpleAuth</a></h4>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            &nbsp;&nbsp;&nbsp;
+                            <h5><a class="nav-link active text-dark" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">Все пользователи</a></h5>
+                            &nbsp;&nbsp;&nbsp;
+                        </li>  
+                        <li class="nav-item">
+                            &nbsp;&nbsp;&nbsp;
+                            <h5><a class="nav-link active text-dark" aria-current="page" asp-area="" asp-controller="Home" asp-action="CreateNewUser">Новый пользователь</a></h5>
+                            &nbsp;&nbsp;&nbsp;
+                        </li>
+                        <li class="nav-item">
+                            &nbsp;&nbsp;&nbsp;
+                             <h5><a class="nav-link active text-dark" aria-current="page" asp-area="" asp-controller="Account" asp-action="LogOut">Выйти из аккаунта</a> </h5>
+                            &nbsp;&nbsp;&nbsp;
+                        </li>  
+                       </ul>
+                            @using(Html.BeginForm("SearchResult", "Home", FormMethod.Post))
+                            {
+                                <form class="d-flex" role="search">
+                                <div class="input-group">
+                                    <input type="text" name="Name" class="form-control" autocomplete="off"/>
+                                    <input type="submit" value="Поиск по имени" class="btn btn-primary" />
+                                </div>
+                                </form>
+                            }
+                        @*
+                        <li class="nav-item">
+                            &nbsp;&nbsp;&nbsp;   
+                            <a href="@Url.Action("UserPage", "Home", new {id = 1 })">Профиль</a> 
+                            &nbsp;&nbsp;&nbsp; 
+                        </li> 
+                        <li class="nav-item">              
+                            &nbsp;&nbsp;&nbsp;Вы вошли как <b>@await Component.InvokeAsync("Timer")</b> &nbsp;&nbsp;&nbsp;
+                        </li> 
+                        *@
+                </div>
+            </div>
+        </nav>
+    </header>
+    }
+
+    else if (ViewContext.HttpContext.User.Identity?.Name != "admin@google.com" && ViewContext.HttpContext.User.Identity?.Name != null)
+    {
+        <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgba(0, 0, 0, 0.2);">
+            <div class="container-fluid">
+               <h4><a class="navbar-brand text-dark">SimpleAuth</a></h4>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            &nbsp;&nbsp;&nbsp;
+                            <h5><a class="nav-link active text-dark" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">Все пользователи</a></h5>
+                            &nbsp;&nbsp;&nbsp;
+                        </li>  
+                        <li class="nav-item">
+                            &nbsp;&nbsp;&nbsp;
+                             <h5><a class="nav-link active text-dark" aria-current="page" asp-area="" asp-controller="Account" asp-action="LogOut">Выйти из аккаунта</a> </h5>
+                            &nbsp;&nbsp;&nbsp;
+                        </li>  
+                       </ul>
+                            @using(Html.BeginForm("SearchResult", "Home", FormMethod.Post))
+                            {
+                                <form class="d-flex" role="search">
+                                <div class="input-group">
+                                    <input type="text" name="Name" class="form-control" autocomplete="off"/>
+                                    <input type="submit" value="Поиск по имени" class="btn btn-primary" />
+                                </div>
+                                </form>
+                            }
+                </div>
+            </div>
+        </nav>
+    </header>
+    }
+    else 
+    {
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgba(0, 0, 0, 0.2);">
+            <div class="container-fluid">
+               <h4><a class="navbar-brand text-dark">SimpleAuth</a></h4>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav flex-grow-1">
+                       </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    }
+
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+    @RenderBody()
+    <br/><br/><br/>
+
+  <section class="">
+  <footer class="bg-secondary text-white">
+    <div class="container p-4">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Послание к потомкам</h5>
+
+          <p>
+            Родился на улице Герцена. В гастрономе №22. Известный экономист. По призванию
+            своему библиотекарь. В народе — колхозник. В магазине — продавец. В экономике, 
+            так сказать, необходим. Это, так сказать, система в составе 120-и единиц. 
+            Фотографируйте Мурманский полуостров — и получаете te-le-fun-ken. И бухгалтер 
+            работает по другой линии. По линии «Библиотека». Потому что не воздух будет, 
+            а академик будет! 
+          </p>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Карьера у нас</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-white">Апельсиновый завод</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Шоколадная фабрика</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Автобусный парк</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Смотритель маяка</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-0">Партнёры</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!" class="text-white">Рептилоиды</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Плоская Земля</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Полая Земля</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">QAnon</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2023 Copyright:
+      <a class="text-white" href="#!">TudaSuda.com</a>
+    </div>
+  </footer>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+</body>
+</html>

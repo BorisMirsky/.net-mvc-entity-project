@@ -1,0 +1,116 @@
+﻿@model SimpleAuth.ViewModels.RegisterModel
+ 
+<br/>
+<h4>Наши сотрудники</h4>
+
+<ul class="tree">
+  <li>
+    <details open>
+      <summary>Все сотрудники</summary>
+      <ul>
+                    <li>
+                      <details>
+                        <summary>Генеральный директор</summary>
+                        <ul>
+                    @foreach (var item in Model.Users)
+                        {
+                            if (@item.Position == "Генеральный директор") 
+                            {
+                                <li> @item.Name</li>
+                            }
+                        }
+                                        </ul>
+                      </details>
+                    </li>
+        <li>
+          <details>
+            <summary>Заместители генерального директора</summary>
+            <ul>
+                      @foreach (var item in Model.Users)
+                            {
+                                if (@item.Position == "Заместитель генерального директора") 
+                                {
+                                    <li> @item.Name</li>
+                                }
+                            }
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>Начальник отдела</summary>
+            <ul>
+                      @foreach (var item in Model.Users)
+                            {
+                                if (@item.Position == "Начальник отдела") 
+                                {
+                                    <li> @item.Name</li>
+                                }
+                            }
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>Ведущий программист</summary>
+            <ul>
+                        @foreach (var item in Model.Users)
+                            {
+                                if (@item.Position == "Старший программист") 
+                                {
+                                    <li> @item.Name</li>
+                                }
+                            }
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>Программист</summary>
+            <ul>
+                           @foreach (var item in Model.Users)
+                                {
+                                    if (@item.Position == "Программист") 
+                                    {
+                                        <li> @item.Name</li>
+                                    }
+                                }
+            </ul>
+          </details>
+        </li>    
+      </ul>
+    </details>
+  </li>
+</ul>
+
+
+<br/>
+<p>Для получения более полной информации о сотрудниках надо войти в систему</p>
+<h4>Если Вы зарегистрированы в системе:</h4>
+<a asp-action="Login" asp-controller="Account">Залогиниться</a>
+<br/> <br/>
+
+<h3>Регистрация</h3>
+<form asp-action="Register" asp-controller="Account" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <div class="form-group">
+            <label asp-for="Email">Введите Email</label><br />
+            <input type="text" asp-for="Email" autocomplete="off"/>
+            <span asp-validation-for="Email"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password">Введите пароль</label><br />
+            <input asp-for="Password" autocomplete="off"/>
+            <span asp-validation-for="Password"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="ConfirmPassword">Повторите пароль</label><br />
+            <input asp-for="ConfirmPassword" autocomplete="off"/>
+            <span asp-validation-for="ConfirmPassword"/>
+        </div>
+        <div>
+            <input type="submit" value="Регистрация" />
+        </div>
+    </div>
+</form>

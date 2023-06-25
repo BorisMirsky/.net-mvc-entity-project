@@ -1,0 +1,227 @@
+﻿@model SimpleAuth.Models.UserProfileEditModel;      
+
+
+@{
+    ViewBag.Title = "UserPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var userpicPath = "";
+    if (@Model.userInfo?.Photo_Path == "" || @Model.userInfo?.Photo_Path == null)
+    {
+        userpicPath = "/userpics/anonim.png";
+    }
+    else
+    {
+        userpicPath = "/userpics/" + @Model.userInfo?.Photo_Path; 
+    }
+}
+
+<br/>
+<br/>
+<p><b>@Model.userInfo?.Name</b></p>
+<p>Вернуться в <a href="@Url.Action("UserPage", "Home", new {id = Model.userInfo?.Id })">профиль</a>без изменений</p>
+<br/>
+
+
+        @using (Html.BeginForm("UserProfileEdit", "Home"))
+           {
+               <label for="basic-url">Новый Email</label>
+               <div class="input-group mb-3 w-50">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3"> Текущий Email:&nbsp; <b>@Model.userInfo?.Email</b> </span>
+              </div>
+              @Html.EditorFor(model => model.NewEmail, new { htmlAttributes = new { @class = "form-control", autocomplete="off" }})
+              <span class="text-danger field-validation-valid" data-valmsg-for="NewEmail" data-valmsg-replace="true"></span>
+              </div>
+
+              <br/>
+
+              <label for="basic-url">Новый Пароль</label>
+              @Html.AntiForgeryToken()
+              @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+              <div class="input-group mb-3 w-50">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3"> Текущий Пароль:&nbsp; <b>@Model.userInfo?.Password</b> </span>
+              </div>
+              @Html.PasswordFor(model => model.NewPassword, new { @class = "form-control",  autocomplete="off"  })
+              @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
+              <span class="text-danger field-validation-valid" data-valmsg-for="NewPassword" data-valmsg-replace="true"></span>
+              </div>
+
+              <br/>
+
+              <label for="basic-url">Подтвердить Новый Пароль</label>
+              @Html.AntiForgeryToken()
+              @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+              <div class="input-group mb-3 w-50">
+              @Html.PasswordFor(model => model.ConfirmNewPassword, new { @class = "form-control",  autocomplete="off"  })
+              @Html.ValidationMessageFor(model => model.ConfirmNewPassword, "", new { @class = "text-danger" })
+              </div>
+              <br/>
+
+              <label for="basic-url">Новая должность</label>
+              <div class="input-group mb-3 w-50">
+              <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon3"> Текущая должность:&nbsp; <b>@Model.userInfo?.Position</b> </span>
+              </div>
+              @Html.EditorFor(model => model.NewPosition, new { htmlAttributes = new { @class = "form-control", autocomplete="off" }})
+              <span class="text-danger field-validation-valid" data-valmsg-for="NewPosition" data-valmsg-replace="true"></span>
+              </div>
+
+              <br/>
+
+              <label for="basic-url">Новая зарплата</label>
+              <div class="input-group mb-3 w-50">
+              <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon3"> Текущая зарплата:&nbsp; <b>@Model.userInfo?.Salary</b> </span>
+              </div>
+              @Html.EditorFor(model => model.NewSalary, new { htmlAttributes = new { @class = "form-control", autocomplete="off" }})
+              <span class="text-danger field-validation-valid" data-valmsg-for="NewSalary" data-valmsg-replace="true"></span>
+              </div>
+
+              <br/>
+
+              <label for="basic-url">Новый юзерпик</label>
+              <div class="input-group mb-3">
+              Текущий юзерпик: 
+              <img class="card-img-top" src=@(userpicPath) style="width:50px; padding:5px 5px 5px 5px;"/>
+              <div class="col-sm-3">
+                    @Html.EditorFor(model => model.New_Photo_Path, new { htmlAttributes = new { @class = "form-control", type="file" } })                     
+              </div>
+              </div>
+              <br/>
+
+            <div class="form-group">
+                    <input type="submit" value="Сохранить изменения" class="btn btn-outline-success" />
+            </div>
+           }
+
+
+
+
+
+<div class="view">
+
+    <div class="row form-horizontal">
+        <div class="col-md-12">
+            <div id="fieldPass" style="display: block;">
+
+           @*  using (Html.BeginForm("UserProfileEdit", "Home"))
+           {
+             <!------------------- Email (LogIn) --------------------------------------------->
+
+             <div class="form-group">
+             <p>Текущий Email: <b>@Model.userInfo?.Email</b></p>
+               @Html.LabelFor(model => model.NewEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-sm-3">
+               @Html.EditorFor(model => model.NewEmail, new { htmlAttributes = new { @class = "form-control", autocomplete="off" }})
+               </div> 
+               <span class="text-danger field-validation-valid" data-valmsg-for="NewEmail" data-valmsg-replace="true"></span>
+             </div>   
+            <br/> 
+            <!------------------------   Password ------------------------------------->
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <p>Текущий пароль: <b> @Model.userInfo?.Password</b></p>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NewPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-sm-3">                          
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control",  autocomplete="off"  })
+                            @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
+                      <span class="text-danger field-validation-valid" data-valmsg-for="NewPassword" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+             <br/>     
+                                 <!--  Confirm -->
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ConfirmNewPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-sm-3">
+                            @Html.PasswordFor(model => model.ConfirmNewPassword, new { @class = "form-control",  autocomplete="off"  })
+                            @Html.ValidationMessageFor(model => model.ConfirmNewPassword, "", new { @class = "text-danger" })
+                           <span class="text-danger field-validation-valid" data-valmsg-for="ConfirmNewPassword" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+             <br/>   
+             <!--------------------------Position------------------------------->
+             <hr width="300"/>
+             <div class="form-group">
+             <p>Текущая должность: <b>@Model.userInfo?.Position</b></p>
+                            @Html.LabelFor(model => model.NewPosition, htmlAttributes: new { @class = "control-label col-md-2" })
+                         <div class="col-sm-3">
+                           @Html.EditorFor(model => model.NewPosition, new { htmlAttributes = new { @class = "form-control", autocomplete="off" }})
+                        </div> 
+                    </div>    
+                    <br/> 
+            <!--------------------------Salary------------------------------->
+            <hr width="300"/>
+            <div class="form-group">
+            <p>Текущая зарплата: <b>@Model.userInfo?.Salary</b></p>
+                    @Html.LabelFor(model => model.NewSalary, htmlAttributes: new { @class = "control-label col-md-2" })
+                 <div class="col-sm-3">
+                    @Html.EditorFor(model => model.NewSalary, new { htmlAttributes = new { @class = "form-control", autocomplete="off" }})
+                 </div>
+            </div>
+                    <br/> 
+            <!-----------------------Photo_Path---------------------->
+            <hr width="300"/>
+            <div class="form-group">
+            <p>Текущий юзерпик: 
+                <img class="card-img-top" src=@(userpicPath) style="width:50px; padding:5px 5px 5px 5px;"/>
+            </p>
+            @Html.LabelFor(model => model.New_Photo_Path, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-sm-3">
+                    @Html.EditorFor(model => model.New_Photo_Path, new { htmlAttributes = new { @class = "form-control", type="file" } })                     
+                </div>
+            </div>
+            <br/> 
+           
+            <!-----------------------Save_changes---------------------->
+            <hr width="300"/>
+            <div class="form-group">
+                    <input type="submit" value="Сохранить изменения" class="btn btn-outline-success" />
+            </div>
+                <br/>
+                }
+*@
+                
+            <!-----------------------remove user---------------------->
+            @using (Html.BeginForm("RemoveUserProfile", "Home", 
+                                   new { Id = @Model.userInfo?.Id }, 
+                                   FormMethod.Post))  
+             {
+                <br/> 
+                <hr width="300" style="border-width: 3px;"/>
+                <div id="info">  </div>
+
+                 <div>
+                        <div class="form-group">
+                            <input 
+                            type="submit" 
+                            value="Удалить пользователя" 
+                            class="btn btn-outline-danger" 
+                            onclick="return confirm('Уверен?')"
+                            />
+                        </div>
+                </div>
+
+             }
+
+            <br/><br/><br/>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+@*            <input type="submit" id="btn_showPass" onclick="showPass()" value="Изменить пароль" />
+            </div>           
+            <script>
+                function showPass() {
+                    (document.getElementById('fieldPass')).style.display = 'block';
+                    (document.getElementById('btn_showPass')).style.display = 'none';
+                }
+            </script>*@

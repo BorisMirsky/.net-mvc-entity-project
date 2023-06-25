@@ -1,0 +1,83 @@
+﻿@model SimpleAuth.Models.IndexModel //SearchResultModel 
+
+
+@{
+    ViewData["Title"] = "SearchResult";
+}
+
+<br/>
+
+
+        @if (ViewContext.HttpContext.User.Identity?.Name == "admin@google.com") //.IsInRole("admin"))
+{
+    <table>
+        <tr>
+            <th>
+                <h5><a asp-action="Index" asp-route-sortOrder="@ViewBag.NameSort">
+                        Имя
+                    </a></h5>
+            </th>
+            <th>
+                <h5><a asp-action="Index" asp-route-sortOrder="@ViewBag.YearSort">
+                        Дата прихода в компанию 
+                    </a></h5>
+            </th>
+            <th>
+                <h5><a asp-action="Index" asp-route-sortOrder="@ViewBag.PositionSort">
+                        Должность
+                    </a></h5>
+            </th>
+            <th>
+                <h5><a asp-action="Index" asp-route-sortOrder="@ViewBag.SalarySort">
+                        Зарплата
+                    </a></h5>
+            </th>
+            <th>
+                <h5>Непосредственный начальник</h5>
+            </th>
+        </tr>
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                <td id="res">
+                    <a href="@Url.Action("UserPage", "Home", new {id = @item.Id })">@item.Name</a>
+                </td>
+                <td>@item.Date</td>
+                <td>@item.Position</td>
+                <td>@item.Salary</td>
+                <td>@item.Immediate_Supervisor</td>
+            </tr>
+        }
+    </table>
+}
+
+else
+{
+        <table>
+        <tr>
+            <th>
+                <h5><a asp-action="Index" asp-route-sortOrder="@ViewBag.NameSort">
+                        Имя
+                    </a></h5>
+            </th>
+            <th>
+                <h5><a asp-action="Index" asp-route-sortOrder="@ViewBag.PositionSort">
+                        Должность
+                    </a></h5>
+            </th>
+            <th>
+                <h5>Непосредственный начальник</h5>
+            </th>
+        </tr>
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                <td id="res">@item.Name</td>
+                <td>@item.Position</td>
+                <td>@item.Immediate_Supervisor</td>
+            </tr>
+        }
+    </table>
+}
+
+
