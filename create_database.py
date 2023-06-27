@@ -24,7 +24,7 @@ class Staff:
         self.chief_deputy_set = []
         self.department_head_set = []
         self.senior_programmer_set = []
-        self.database_path = r'SimpleAuth\SimpleAuth\Database\UsersDB.db'
+        self.database_path = r'SimpleAuth\Database\UsersDB.db'
         
 
     # нужна функция (типа логарфмической) для количества персонала, в зависимости от общей цифры
