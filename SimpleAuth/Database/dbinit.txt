@@ -1,1 +1,1 @@
-database initialise empty file
+empty file for to initialize database folder 
