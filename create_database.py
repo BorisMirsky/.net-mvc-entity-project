@@ -1,3 +1,8 @@
+# Информация о каждом сотруднике должна храниться в базе данных и
+# содержать следующие данные: 
+# ФИО, Должность, Дата приема на работу; 
+# Размер заработной платы; У каждого сотрудника есть 1 начальник;
+
 
 import datetime
 import random
@@ -5,6 +10,8 @@ from datetime import timedelta
 from russian_names import RussianNames
 import sqlite3
 import time
+
+
 
 class Staff:
     def __init__(self):  
@@ -27,8 +34,8 @@ class Staff:
         self.database_path = r'SimpleAuth\Database\UsersDB.db'
         
 
-    # нужна функция (типа логарфмической) для количества персонала, в зависимости от общей цифры
-    # пока что все данные захардкожены в код - ЭТО НЕПРАВИЛЬНО!
+    # Нужна функция (типа логарфмической) для количества персонала, в зависимости от общей цифры
+    # Пока что все данные захардкожены в код - это временно
     def employees(self):   
         self.number_chief = 1
         self.number_chief_deputy = 3 
@@ -45,6 +52,7 @@ class Staff:
                self.number_senior_programmer,
                self.number_programmer]
         return res
+
 
      # -------------------------database-----------------------------
     def create_db(self):
@@ -70,6 +78,7 @@ class Staff:
                                       'admin@google.com', 'password', 0, 'AdminRole'))
         sqliteConnection.commit()
         cursor.close()
+
 
     def insert_date_db(self, _name, _position, _date,
                        _salary, _immediate_supervisor,
@@ -177,9 +186,11 @@ class Staff:
         res = dict(zip(keys_list, values_list))
         return res
 
+
     level_3_dict = generate_dict(5,14,1,3,3)
     level_4_dict = generate_dict(14,41,1,9,3)
     level_5_dict = generate_dict(41,176,1,135,5)
+
 
     def generate_immediate_supervisor(self, employe_index):
         # level_1 chief
