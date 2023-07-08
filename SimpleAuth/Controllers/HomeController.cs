@@ -177,61 +177,60 @@ namespace SimpleAuth.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult CreateNewUser() 
+        public ActionResult CreateNewUser()
         {
             NewUserModel model = new NewUserModel();
-            //UserProfileEditModel model = new UserProfileEditModel();
             UserInfo? userInfo = (from usr in db.usersdb
                                   where usr.Email == User.Identity.Name
-                                  select usr).FirstOrDefault(); // SingleOrDefault();
+                                  select usr).FirstOrDefault(); 
             model.User = userInfo!;
-            return View(model); 
-        }
-
-
-        [Authorize]
-        [HttpPost]
-        public async Task<ActionResult> CreateNewUser1(NewUserModel model)
-        {
-            int id = db.usersdb.Count() + 1;
-            if (ModelState.IsValid)
-            {
-                UserInfo userInfo = await db.usersdb.FirstOrDefaultAsync(u => u.Id == id);
-                if (userInfo == null)
-                {
-                    _ = db.usersdb.Add(new UserInfo
-                    {
-                        Id = id,
-                        Email = model.Email,
-                        Password = model.Password,
-                        Name = model.Name,
-                        Date = model.Date,
-                        Salary = model.Salary,
-                        Position = model.Position,
-                        Photo_Path = model.Photo_Path,    //@"wwwroot\userpics\anonim.png",  //model.Photo_Path ||
-                        Immediate_Supervisor = model.Immediate_Supervisor
-                    });
-                    if (model.Photo_Path == null || model.Photo_Path == "")
-                    {
-                        model.Photo_Path = @"wwwroot\userpics\anonim.png";
-                        await db.SaveChangesAsync();
-                    }
-                    else 
-                    {
-                        string? fileName = model.Photo_Path;
-                        string sourcePath = @"..\..\userpics_issue";
-                        string targetPath = @"wwwroot\userpics\";
-                        string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
-                        string destFile = System.IO.Path.Combine(targetPath, fileName);
-                        System.IO.File.Copy(sourceFile, destFile, true);
-                        await db.SaveChangesAsync();
-                    }
-                //db.usersdb.Add(model);
-            }
-            return RedirectToAction("UserPage", new { id });
-            }
             return View(model);
         }
+
+
+        //[Authorize]
+        //[HttpPost]
+        //public async Task<ActionResult> CreateNewUser1(NewUserModel model)
+        //{
+        //    int id = db.usersdb.Count() + 1;
+        //    if (ModelState.IsValid)
+        //    {
+        //        UserInfo userInfo = await db.usersdb.FirstOrDefaultAsync(u => u.Id == id);
+        //        if (userInfo == null)
+        //        {
+        //            _ = db.usersdb.Add(new UserInfo
+        //            {
+        //                Id = id,
+        //                Email = model.Email,
+        //                Password = model.Password,
+        //                Name = model.Name,
+        //                Date = model.Date,
+        //                Salary = model.Salary,
+        //                Position = model.Position,
+        //                Photo_Path = model.Photo_Path,    //@"wwwroot\userpics\anonim.png",  //model.Photo_Path ||
+        //                Immediate_Supervisor = model.Immediate_Supervisor
+        //            });
+        //            if (model.Photo_Path == null || model.Photo_Path == "")
+        //            {
+        //                model.Photo_Path = @"wwwroot\userpics\anonim.png";
+        //                await db.SaveChangesAsync();
+        //            }
+        //            else 
+        //            {
+        //                string? fileName = model.Photo_Path;
+        //                string sourcePath = @"..\userpics_issue\";
+        //                string targetPath = @"wwwroot\userpics\";
+        //                string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
+        //                string destFile = System.IO.Path.Combine(targetPath, fileName);
+        //                System.IO.File.Copy(sourceFile, destFile, true);
+        //                await db.SaveChangesAsync();
+        //            }
+        //        //db.usersdb.Add(model);
+        //    }
+        //    return RedirectToAction("UserPage", new { id });
+        //    }
+        //    return View(model);
+        //}
 
 
         [Authorize]
@@ -267,7 +266,7 @@ namespace SimpleAuth.Controllers
                 else
                 {
                     string? fileName = model.Photo_Path;
-                    string sourcePath = @"..\..\userpics_issue";
+                    string sourcePath = @"..\userpics_issue\";
                     string targetPath = @"wwwroot\userpics\";
                     string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
                     string destFile = System.IO.Path.Combine(targetPath, fileName);
