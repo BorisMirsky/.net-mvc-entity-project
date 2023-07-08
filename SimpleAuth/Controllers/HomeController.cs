@@ -132,7 +132,7 @@ namespace SimpleAuth.Controllers
                 {
                     same.Photo_Path = model.New_Photo_Path;
                     string fileName = same.Photo_Path;
-                    string sourcePath = @"..\..\userpics_issue";
+                    string sourcePath = @"..\userpics_issue\";
                     string targetPath = @"wwwroot\userpics\";
                     string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
                     string destFile = System.IO.Path.Combine(targetPath, fileName);
