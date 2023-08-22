@@ -1,7 +1,5 @@
 CRUD-приложение сделано на основе "Тестовое задание на позицию 'Python Developer.pdf'".
-
-Возможна ошибка "The certificate received from the remote server was issued by an untrusted certificate authority" error when you connect to SQL Server.
-В этом случае надо установить the root certificate authority на локальную машину по этому гайду https://learn.microsoft.com/en-us/troubleshoot/sql/database-engine/connect/error-message-when-you-connect
+https://drive.google.com/file/d/1qUzx0m_Koj83k_G8BScCNK7opazbuDzk/view
 
 
 
@@ -20,11 +18,11 @@ CRUD-приложение сделано на основе "Тестовое з�
 Как пользоваться
 1. Создание БД (python)
 - Установить пакет 'pip install russian-names'. 
-  Устанавливать виртуальное окружение не требуется. 
+  Устанавливать виртуальное окружение из-за одного небольшого пакета не обязательно.
 - Запустить файл .net-mvc-entity-project\create_database.py, время выполнения ~10 секунд.
   Созданная база появится в .net-mvc-entity-project\SimpleAuth\Database.
-2. Перейти в папку \.net-mvc-entity-project\SimpleAuth и выполнить в командной строке 'dotnet restore'.
 3. Запустить проект через Visual Studio.
+   VS подхватит проект и сама установит версии библиотек из файла проекта.
 
 
 Visual Studio Version 17, 2022;
