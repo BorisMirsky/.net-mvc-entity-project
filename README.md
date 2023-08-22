@@ -1,5 +1,9 @@
 CRUD-приложение сделано на основе "Тестовое задание на позицию 'Python Developer.pdf'".
 
+Возможна ошибка "The certificate received from the remote server was issued by an untrusted certificate authority" error when you connect to SQL Server.
+В этом случае надо установить the root certificate authority на локальную машину по этому гайду https://learn.microsoft.com/en-us/troubleshoot/sql/database-engine/connect/error-message-when-you-connect
+
+
 
 
 Отличия от задания
